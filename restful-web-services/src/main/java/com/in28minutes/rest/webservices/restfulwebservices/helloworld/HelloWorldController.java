@@ -35,6 +35,5 @@ public class HelloWorldController {
     public String helloWorldInternationalized() {
         Locale locale = LocaleContextHolder.getLocale();
         return messageSource.getMessage("good.morning.message", null, "Default Message", locale);
-        //return "Hello World V2";
     }
 }
