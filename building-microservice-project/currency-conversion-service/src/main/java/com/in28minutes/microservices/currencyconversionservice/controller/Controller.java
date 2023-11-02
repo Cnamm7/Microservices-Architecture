@@ -19,6 +19,9 @@ public class Controller {
     @Autowired
     private CurrencyExchangeProxy proxy;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyCoversion calculateCurrencyConversion(
             @PathVariable String from,
@@ -28,7 +31,7 @@ public class Controller {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
         uriVariables.put("to", to);
-        ResponseEntity<CurrencyCoversion> responseEntity = new RestTemplate().getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyCoversion.class, uriVariables);
+        ResponseEntity<CurrencyCoversion> responseEntity = restTemplate.getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyCoversion.class, uriVariables);
 
         CurrencyCoversion currencyCoversion = responseEntity.getBody();
 
