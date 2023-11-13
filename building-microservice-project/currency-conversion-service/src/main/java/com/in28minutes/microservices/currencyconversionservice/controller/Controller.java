@@ -1,6 +1,6 @@
 package com.in28minutes.microservices.currencyconversionservice.controller;
 
-import com.in28minutes.microservices.currencyconversionservice.bean.CurrencyCoversion;
+import com.in28minutes.microservices.currencyconversionservice.bean.CurrencyConversion;
 import com.in28minutes.microservices.currencyconversionservice.bean.CurrencyExchangeProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class Controller {
     private RestTemplate restTemplate;
 
     @GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
-    public CurrencyCoversion calculateCurrencyConversion(
+    public CurrencyConversion calculateCurrencyConversion(
             @PathVariable String from,
             @PathVariable String to,
             @PathVariable BigDecimal quantity
@@ -31,30 +31,30 @@ public class Controller {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
         uriVariables.put("to", to);
-        ResponseEntity<CurrencyCoversion> responseEntity = restTemplate.getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyCoversion.class, uriVariables);
+        ResponseEntity<CurrencyConversion> responseEntity = restTemplate.getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversion.class, uriVariables);
 
-        CurrencyCoversion currencyCoversion = responseEntity.getBody();
+        CurrencyConversion currencyConversion = responseEntity.getBody();
 
-        return new CurrencyCoversion(currencyCoversion.getId(),
+        return new CurrencyConversion(currencyConversion.getId(),
                 from, to, quantity,
-                currencyCoversion.getConversionMultiple(),
-                quantity.multiply(currencyCoversion.getConversionMultiple()),
-                currencyCoversion.getEnvironment() + " " + "rest template");
+                currencyConversion.getConversionMultiple(),
+                quantity.multiply(currencyConversion.getConversionMultiple()),
+                currencyConversion.getEnvironment() + " " + "rest template");
     }
 
     @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
-    public CurrencyCoversion calculateCurrencyConversionFeign(
+    public CurrencyConversion calculateCurrencyConversionFeign(
             @PathVariable String from,
             @PathVariable String to,
             @PathVariable BigDecimal quantity
     ) {
 
-        CurrencyCoversion currencyCoversion = proxy.retriveExchnageValue(from, to);
+        CurrencyConversion currencyConversion = proxy.retriveExchnageValue(from, to);
 
-        return new CurrencyCoversion(currencyCoversion.getId(),
+        return new CurrencyConversion(currencyConversion.getId(),
                 from, to, quantity,
-                currencyCoversion.getConversionMultiple(),
-                quantity.multiply(currencyCoversion.getConversionMultiple()),
-                currencyCoversion.getEnvironment() + " " + "feign");
+                currencyConversion.getConversionMultiple(),
+                quantity.multiply(currencyConversion.getConversionMultiple()),
+                currencyConversion.getEnvironment() + " " + "feign");
     }
 }

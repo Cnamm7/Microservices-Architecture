@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface CurrencyExchangeProxy {
 
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
-    public CurrencyCoversion retriveExchnageValue(
+    public CurrencyConversion retriveExchnageValue(
             @PathVariable String from,
             @PathVariable String to);
 }

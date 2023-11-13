@@ -2,7 +2,7 @@ package com.in28minutes.microservices.currencyconversionservice.bean;
 
 import java.math.BigDecimal;
 
-public class CurrencyCoversion {
+public class CurrencyConversion {
     private Long id;
     private String from;
     private String to;
@@ -11,10 +11,10 @@ public class CurrencyCoversion {
     private BigDecimal totalCalculatedAmount;
     private String environment;
 
-    public CurrencyCoversion() {
+    public CurrencyConversion() {
     }
 
-    public CurrencyCoversion(Long id, String from, String to, BigDecimal quantity, BigDecimal conversionMultiple, BigDecimal totalCalculatedAmount, String environment) {
+    public CurrencyConversion(Long id, String from, String to, BigDecimal quantity, BigDecimal conversionMultiple, BigDecimal totalCalculatedAmount, String environment) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -82,7 +82,7 @@ public class CurrencyCoversion {
 
     @Override
     public String toString() {
-        return "CurrencyCoversion{" +
+        return "CurrencyConversion{" +
                 "id=" + id +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
